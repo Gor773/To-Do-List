@@ -31,14 +31,16 @@ function submit(e) {
 }
 
 function addTask(task, done) {
-
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
-    if(done) {
-        li.innerHTML = `<span class = "delete" >x</span><input checked type = "checkbox" ><label>${task}</label></li> `;
-    }else{
-        li.innerHTML = `<span class = "delete" >x</span><input type = "checkbox" ><label>${task}</label></li> `;
-    }
+    for(let i = 0; i < data.length; i++){
+        if(data[i].done == true){
+            li.innerHTML = `<span class = "delete" >x</span><input checked type = "checkbox" ><label>${task}</label></li> `;
+        }else{
+            li.innerHTML = `<span class = "delete" >x</span><input type = "checkbox" ><label>${task}</label></li> `;
+        } 
+    }   
+
     ul.appendChild(li);
 }
 
