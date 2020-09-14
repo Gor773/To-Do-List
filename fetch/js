@@ -1,0 +1,99 @@
+const url = "https://my-json-server.typicode.com/babkenmes/todos/todos";
+
+loadEvents();
+
+function loadEvents(){
+   /* async function getToDos() {
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log("Data:", data);
+    
+        } catch (e) {
+            console.error(e)
+        }
+        return data;
+    }
+    */
+    const todosArr = [ //data
+        {
+            "id": 1,
+            "title": "This is my first ToDo",
+            "done": false
+        },
+        {
+            "id": 2,
+            "title": "Go to work",
+            "done": true
+        },
+        {
+            "id": 3,
+            "title": "Call to Trump",
+            "done": false
+        }
+    ]
+    
+    getElements(todosArr);
+  
+  document.querySelector('form').addEventListener('submit',submit);
+  document.getElementById('clear').addEventListener('click',clearList);
+  document.querySelector('ul').addEventListener('click',deleteOrTick);
+
+}
+
+function getElements(dataArr) {
+  for(let i = 0; i < dataArr.length; i++) {
+    console.log(dataArr[i]);
+    addTask(dataArr[i].title, dataArr[i].done);
+  }
+     
+}
+
+function submit(e){
+  e.preventDefault();
+  let input = document.querySelector('input');
+  if(input.value != '')
+    addTask(input.value);
+  input.value = '';
+}
+
+
+function addTask(task, done) {
+  let ul = document.querySelector('ul');
+  let li = document.createElement('li');
+  const checked = ((done) ? "checked" : "" );
+  li.innerHTML = `<span class = "delete" >x</span><input class="todo-input" ${checked} type = "checkbox" ><label>${task}</label></li> `;
+  ul.appendChild(li);
+}
+
+function clearList(e){
+    let ul = document.querySelector('ul').innerHTML = '';
+  }
+ 
+
+function deleteOrTick(e){
+  if(e.target.className == 'delete')
+    deleteTask(e);
+  else {
+    tickTask(e);
+  }
+}
+
+
+function deleteTask(e){
+  let remove = e.target.parentNode;
+  let parentNode = remove.parentNode;
+  parentNode.removeChild(remove);
+}
+
+
+function tickTask(e){
+  const task = e.target.nextSibling;
+  if(e.target.checked){
+    task.style.textDecoration = "line-through";
+    task.style.color = "#ff0000";
+  }else {
+    task.style.textDecoration = "none";
+    task.style.color = "#2f4f4f";
+  }
+}  
